@@ -1,0 +1,5 @@
+package kuziDB
+
+func Main() {
+	//
+}
