@@ -1,5 +1,7 @@
-package kuziDB
+package main
 
-func Main() {
-	//
+import "fmt"
+
+func main() {
+	fmt.Println("kuziDB started 1")
 }
