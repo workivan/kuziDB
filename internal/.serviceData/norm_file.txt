@@ -1,0 +1,1 @@
+header:golang,22222,aboba uint8 f/names char f,/home/crowdyara/go/src/my-project/kuziDB/internal/.usersData/golang/1.txt;
