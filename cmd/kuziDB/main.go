@@ -3,9 +3,36 @@ package main
 import (
 	"log"
 	"net"
+	"os"
 
 	"github.com/joho/godotenv"
 )
+
+func main() {
+	loadEnvs()
+
+	address, _ := os.LookupEnv("DEFAULT_ADDRESS")
+	if address == "" {
+		log.Fatal("Missing required environment variable: DEFAULT_ADDRESS")
+		return
+	}
+	log.Printf("Will listen on %s", address)
+
+	listener, err := net.Listen("tcp", address)
+	if err != nil {
+		log.Printf("Can't start listen on %s by %s", address, err)
+	}
+
+	for {
+		conn, err := listener.Accept() // принимаем TCP-соединение от клиента и создаем новый сокет
+		if err != nil {
+			log.Fatalf("Can't start listen on %s by %s", address, err)
+			return
+		}
+
+		go handleConnection(conn) // обрабатываем запросы клиента в отдельной го-рутине
+	}
+}
 
 func handleConnection(conn net.Conn) {
 	defer conn.Close() // закрываем сокет при выходе из функции
